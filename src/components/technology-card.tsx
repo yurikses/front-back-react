@@ -1,15 +1,14 @@
 import type {Technology} from "../App.tsx";
-import {TechnologyNotes} from "./techology-notes.tsx";
 
-export function TechnologyCard({changeStatus, onNoteChange ,technology}: {changeStatus: (id: number, status: string) => void , onNoteChange: (id: number, status: string) => void, technology: Technology}) {
+export function TechnologyCard({changeStatus ,technology}: {changeStatus: (id: number, status: string) => void , technology: Technology}) {
   const nextStatus = technology.status === 'completed' ? 'not-started' : technology.status == 'in-progress' ? 'completed' : technology.status == 'not-started' ? 'in-progress' : 'completed' ;
   return (
-    <div className="bg-amber-100/20 border-l-4 border-amber-600 rounded-md m-1 p-1">
-      <div className="text-center mb-2">
+    <div className="shadow-md rounded-md m-1 pb-2 min-w-[300px] ">
+      <div className="text-center mb-2 bg-emerald-200 rounded-t-md  px-4">
         <h3>{technology.title}</h3>
       </div>
 
-      <section className="flex justify-between gap-3">
+      <section className="flex justify-between gap-3  px-4">
         <div className="text-justify inline-flex flex-col gap-2">
           <p className="text-lg text-wrap">
             {technology.description}
@@ -27,7 +26,7 @@ export function TechnologyCard({changeStatus, onNoteChange ,technology}: {change
         </span>
           <button className="w-fit px-2 py-1 bg-white border-1 rounded border-cyan-600" onClick={()=>{changeStatus(technology.id, nextStatus)}}>Обновить статус</button>
         </div>
-        <TechnologyNotes notes = {technology.notes} onNotesChange={onNoteChange} techId={technology.id} />
+        {/*<TechnologyNotes notes = {technology.notes} onNotesChange={onNoteChange} techId={technology.id} />*/}
       </section>
 
 

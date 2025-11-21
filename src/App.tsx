@@ -5,6 +5,7 @@ import {HomePage} from "./pages/Home.tsx";
 import {AddTechnologyPage} from "./pages/AddTechnology.tsx";
 import {TechnologyDetailPage} from "./pages/TechnologyDetails.tsx";
 import {TechnologyListPage} from "./pages/TechnologyList.tsx";
+import {StatisticsPage} from "./pages/statistics.tsx";
 
 export type Technology = {
   id: number,
@@ -22,14 +23,15 @@ function App() {
 
   return (
     /*<Navigation/>*/
-    <Router>
+    <Router basename={'/front-back-react/'}>
       <Navigation/>
-      <Routes>
+      <Routes >
         <Route path="/" Component={HomePage}/>
         <Route path="/add-technology" Component={AddTechnologyPage}/>
         <Route path="/technologies" Component={TechnologyListPage}/>
         <Route path="/technology/:techId" Component={TechnologyDetailPage}/>
-      </Routes>
+        <Route path="/statistics" Component={StatisticsPage}/>
+      </Routes >
 
     </Router>
   )
