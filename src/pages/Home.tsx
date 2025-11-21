@@ -7,13 +7,11 @@ import useTechnologies from "../hooks/useTechnologies.ts";
 
 export function HomePage(){
   const [searchText, setSearchText] = useState("");
-  const { technologies, setTechnologies, updateStatus, updateNotes } = useTechnologies();
-
+  const { technologies, setTechnologies, updateStatus } = useTechnologies();
 
   const filteredTechs  = technologies.filter((tech: Technology) =>
     tech.title.toLowerCase().includes(searchText.toLowerCase()) ||
     tech.description.toLowerCase().includes(searchText.toLowerCase()))
-
 
   useEffect(() => {
     if(technologies.length == 0){
@@ -39,24 +37,41 @@ export function HomePage(){
       )
     )
   }
+
   return (
-    <div className="px-12">
-      <QuickActions onAllComplete={setAllComplete} onResetAll={resetAll} technologies={technologies}/>
-      <div className="flex w-fit gap-4 mx-auto my-3">
-        <h2>Поиск технологий: </h2>
-        <input
-          className=" rounded-md border-2 px-1 leading-2border-gray-500 focus:border-gray-700 focus:outline-0"
-          type="text"
-          placeholder="Поиск технологий..."
-          value={searchText}
-          onChange={(e)=>{setSearchText(e.target.value)}}/>
-      </div>
+    <main className="mx-auto max-w-5xl px-6 pt-20 pb-10 flex flex-col gap-6">
+      <section className="flex flex-col lg:flex-row lg:items-start gap-6">
+        <QuickActions onAllComplete={setAllComplete} onResetAll={resetAll} technologies={technologies}/>
+        <div className="flex-1">
+          <ProgressHeader technologies={technologies} />
+        </div>
+      </section>
 
-      <div className="grid grid-cols-4">
-        {filteredTechs.map((technology: Technology ) =>
-          ( <TechnologyCard  changeStatus = {updateStatus} key={technology.id} technology = {technology}/>))}
-      </div>
+      <section className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <h2 className="text-base font-medium text-gray-800">
+            Поиск технологий
+          </h2>
+          <input
+            className="w-full sm:max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            type="text"
+            placeholder="Поиск технологий..."
+            value={searchText}
+            onChange={(e)=>{setSearchText(e.target.value)}}/>
+        </div>
 
-    </div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredTechs.map((technology: Technology ) => (
+            <TechnologyCard  changeStatus = {updateStatus} key={technology.id} technology = {technology}/>
+          ))}
+
+          {filteredTechs.length === 0 && (
+            <div className="col-span-full rounded-md border border-dashed border-gray-300 bg-gray-50 px-4 py-8 text-center text-sm text-gray-500">
+              Нет технологий, подходящих под поиск.
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
   )
 }

@@ -10,18 +10,16 @@ export function Modal({ isOpen, onClose, title, children } : {isOpen: boolean, o
     }
   };
   return (
-    <div className="fixed w-full h-full top-0 left-0 flex bg-black/20" onClick={handleBackgroundClick}>
-      <div className=" w-fit h-fit bg-white p-2 m-auto rounded-md self-center p-1">
-        {/* Шапка модалки с заголовком и кнопкой закрытия */}
-        <div className=" flex justify-between mb-2">
-          <h2 className="font-semibold text-xl">{title}</h2>
-          <button className=" px-2 text-center" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40" onClick={handleBackgroundClick}>
+      <div className="w-[min(32rem,90vw)] max-h-[80vh] overflow-hidden rounded-xl bg-white shadow-xl">
+        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <h2 className="font-semibold text-base text-gray-900 truncate mr-2">{title}</h2>
+          <button className="inline-flex h-7 w-7 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-800" onClick={onClose}>
             ×
           </button>
         </div>
 
-        {/* Основное содержимое модалки */}
-        <div className="modal-content">
+        <div className="px-4 py-3 overflow-auto max-h-[70vh]">
           {children}
         </div>
       </div>

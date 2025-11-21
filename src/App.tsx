@@ -23,7 +23,7 @@ function App() {
 
   return (
     /*<Navigation/>*/
-    <Router basename={'/front-back-react/'}>
+    <Router  basename={'/front-back-react/'}>
       <Navigation/>
       <Routes >
         <Route path="/" Component={HomePage}/>

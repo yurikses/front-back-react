@@ -11,34 +11,35 @@ export function ProgressHeader({technologies}: {technologies: {id:number , title
       learningCount++
     }
   })
-  const percent: number = Math.floor(doneCount / totalCount*100);
+  const percent: number = totalCount === 0 ? 0 : Math.floor(doneCount / totalCount*100);
+
+  const borderColor = percent < 50 ? 'border-red-400' : percent < 80 ? 'border-orange-400' : 'border-green-500';
+  const barColor = percent < 50 ? 'bg-red-500' : percent < 80 ? 'bg-orange-400' : 'bg-green-600';
+
   return (
-    <div className="border border-gray-600/20 rounded shadow-md flex flex-col gap-3 p-2 m-4">
-      <p className=''>Количество изученных технологий: {doneCount} из {totalCount}</p>
-      <p className=''>Количество изучаемых технологий: {learningCount} из {totalCount}</p>
-      <p className=''>Количество технологий требующих изучение: {totalCount - doneCount - learningCount } из {totalCount}</p>
-      <div className="flex gap-2 w-full items-center">
-        <p className='leading-1'>Процент изучения технологий: </p>
-        <div  className="grow">
-          <p  className={`flex-grow border 
-        ${ percent <50
-            ? `border-red-600` :
-            percent < 80
-              ? `border-orange-400`
-              : `border-green-800`   } rounded-md m-1 p-1 text-center `}>
-            <p
-              style={{width: `${percent}%`}}
-              className={`h-full rounded text-gray-100 
-            ${ percent <50
-                ? `bg-red-600` :
-                percent < 80
-                  ? `bg-orange-400` :
-                  `bg-green-800`   }`}>{percent}%
-            </p>
-          </p>
+    <section className="rounded-lg border border-gray-200 bg-white/70 shadow-sm p-4 flex flex-col gap-3">
+      <div className="space-y-1 text-sm text-gray-800">
+        <p>Количество изученных технологий: <span className="font-semibold">{doneCount}</span> из {totalCount}</p>
+        <p>Изучаются сейчас: <span className="font-semibold">{learningCount}</span> из {totalCount}</p>
+        <p>Осталось изучить: <span className="font-semibold">{totalCount - doneCount - learningCount}</span> из {totalCount}</p>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <p className="text-sm text-gray-700 whitespace-nowrap">
+          Прогресс изучения:
+        </p>
+        <div className="flex-1">
+          <div className={`w-full overflow-hidden rounded-md border text-xs text-center ${borderColor}`}>
+            <div
+              style={{ width: `${percent}%` }}
+              className={`h-6 ${barColor} text-gray-50 flex items-center justify-center transition-all`}
+            >
+              {percent}%
+            </div>
+          </div>
         </div>
       </div>
 
-    </div>
+    </section>
   )
 }
