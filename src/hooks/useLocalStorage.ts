@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import type {Technology} from "../App.tsx";
+import type {User} from "@/hooks/useUser.ts";
+import type {Category} from "@/hooks/useTechnologies.ts";
 // Кастомный хук для работы с localStorage
-function useLocalStorage(key: string, initialValue: Technology[]) {
+function useLocalStorage(key: string, initialValue: Technology[] | User | boolean | Category[] ) {
   // Инициализируем состояние, пытаясь получить значение из localStorage
   const [storedValue, setStoredValue] = useState(() => {
     try {
